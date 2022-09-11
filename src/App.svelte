@@ -10,7 +10,7 @@
                 case "number":
                     return {min: 1, max: 100}
                 case "string":
-                    return {text: ''}
+                    return {text: '', chance: 100}
                 case "noun":
                     return {capitalLetters: 'first'}
                 case "adjective":
@@ -61,7 +61,7 @@
             return Math.floor(Math.random()*(data.max-data.min+1))+data.min + ""
         });
         funcMap.set("string", (data) => {
-            return data.text;
+            return Math.random() > data.chance/100 ? "" : data.text;
         })
         funcMap.set('verb', data => genCapitalize(data, randomVerb))
         funcMap.set('adjective', data => genCapitalize(data, randomAdjective))
