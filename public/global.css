@@ -1,0 +1,13 @@
+:not(i) {
+    font-family: Arial;
+}
+body {
+    margin: 0px;
+    padding: 0px;
+}
+.italic {
+    font-style: italic;
+}
+.bold {
+    font-weight: bold;
+}
