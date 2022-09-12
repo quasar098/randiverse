@@ -7,6 +7,9 @@
     <button on:click={() => callback('clear')}>
         <p>Clear All</p>
     </button>
+    <button on:click={() => callback('clear-output')}>
+        <p>Clear Output</p>
+    </button>
     <button on:click={() => callback('number')}>
         <p>Number</p>
     </button>
@@ -21,6 +24,9 @@
     </button>
     <button on:click={() => callback('verb')}>
         <p>Verb</p>
+    </button>
+    <button on:click={() => callback('list')}>
+        <p>List</p>
     </button>
     <button on:click={() => callback('output')} class='ml mr'>
         <i class='fa fa-rotate-right'></i>

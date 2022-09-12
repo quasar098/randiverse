@@ -7,6 +7,7 @@
     import Noun from './chunks/Noun.svelte';
     import Verb from './chunks/Verb.svelte';
     import Adjective from './chunks/Adjective.svelte';
+    import List from './chunks/List.svelte';
     import { chunks } from './stores.js'
 
     function determineColor(): string {
@@ -60,6 +61,8 @@
             <Adjective bind:data={data}/>
         {:else if data.type == "verb"}
             <Verb bind:data={data}/>
+        {:else if data.type == "list"}
+            <List bind:data={data}/>
         {/if}
     </div>
 </div>

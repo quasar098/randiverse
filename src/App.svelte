@@ -17,6 +17,8 @@
                     return {capitalLetters: 'first'}
                 case "verb":
                     return {capitalLetters: 'first'}
+                case "list":
+                    return {possible: ""}
             }
         }
         let cObj = chunkObjectWithoutType();
@@ -31,6 +33,8 @@
                 return (() => {chunks.set([]);outputs.set([])})()
             case "output":
                 return outputs.update(ops => {let curOut = getOutput(); curOut.replaceAll(" ", '').length ? ops.push(getOutput()) : undefined; return ops})
+            case "clear-output":
+                return outputs.set([]);
             default:
                 return chunks.update(_ => {_.push(newChunkObject(chunkName)); return _})
         }
@@ -63,6 +67,12 @@
         });
         funcMap.set("string", (data) => {
             return data.text;
+        })
+        funcMap.set("list", (data) => {
+            let commaCount = data.possible.split(',').length-1;
+            let newlineCount = data.possible.split('\n').length-1;
+            let splitPossible = newlineCount >= commaCount ? data.possible.split('\n') : data.possible.split(',');
+            return splitPossible[Math.floor(Math.random()*splitPossible.length)];
         })
         funcMap.set('verb', data => genCapitalize(data, randomVerb))
         funcMap.set('adjective', data => genCapitalize(data, randomAdjective))
