@@ -22,5 +22,7 @@
     }
     p {
         text-align: center;
+        margin-top: 4px;
+        margin-bottom: 3px;
     }
 </style>
