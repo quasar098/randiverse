@@ -10,6 +10,8 @@
         <option value="all">ALL CAPS</option>
         <option value="random">rAnDOm CapS</option>
     </select>
+    <p>Chance to show up</p>
+    <input type="value" bind:value={data.chance} step="1"/>
 </div>
 
 <style>

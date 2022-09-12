@@ -3,11 +3,12 @@
 </script>
 
 <div class='chunk'>
-    <p>Minimum</p>
+    <p>Minimum (inclusive)</p>
     <input type="number" bind:value={data.min} step="1"/>
-    <p>Maximum</p>
+    <p>Maximum (inclusive)</p>
     <input type="number" bind:value={data.max} step="1"/>
-    <p>Both min and max are <br><strong>inclusive</strong></p>
+    <p>Chance to show up</p>
+    <input type="value" bind:value={data.chance} step="1"/>
 </div>
 
 <style>

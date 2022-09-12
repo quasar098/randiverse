@@ -10,7 +10,7 @@
                 case "number":
                     return {min: 1, max: 100}
                 case "string":
-                    return {text: '', chance: 100}
+                    return {text: ''}
                 case "noun":
                     return {capitalLetters: 'first'}
                 case "adjective":
@@ -21,6 +21,7 @@
         }
         let cObj = chunkObjectWithoutType();
         cObj.type = chunkName;
+        cObj.chance = 100;
         return cObj;
     }
 
@@ -61,7 +62,7 @@
             return Math.floor(Math.random()*(data.max-data.min+1))+data.min + ""
         });
         funcMap.set("string", (data) => {
-            return Math.random() > data.chance/100 ? "" : data.text;
+            return data.text;
         })
         funcMap.set('verb', data => genCapitalize(data, randomVerb))
         funcMap.set('adjective', data => genCapitalize(data, randomAdjective))
@@ -69,7 +70,7 @@
         chunks.update(chunkers => {
             for (let index in chunkers) {
                 let chunk = chunkers[index];
-                text += (funcMap.get(chunk.type) ?? (() => {""}))(chunk)
+                text += Math.random() > chunk.chance/100 ? "" : (funcMap.get(chunk.type) ?? (() => {""}))(chunk)
             }
             return chunkers;
         });

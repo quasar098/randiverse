@@ -4,8 +4,8 @@
 </script>
 
 <div class='chunk-builder'>
-    {#each $chunks as chunk}
-        <ChunkRouter bind:data={chunk}/>
+    {#each $chunks as chunk, index}
+        <ChunkRouter bind:data={chunk} isfirst={index == 0} islast={index+1 == $chunks.length}/>
     {/each}
 </div>
 

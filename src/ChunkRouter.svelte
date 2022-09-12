@@ -1,5 +1,7 @@
 <script lang="ts">
     export let data;
+    export let isfirst = false;
+    export let islast = false;
     import Number from './chunks/Number.svelte'
     import String from './chunks/String.svelte'
     import Noun from './chunks/Noun.svelte';
@@ -23,12 +25,30 @@
                 return "229, 229, 229";
         }
     }
+    function moveLeft() {
+        chunks.update(chunkers => {
+            let index = chunkers.indexOf(data)
+            chunkers = chunkers.filter(chunky => chunky != data);
+            chunkers.splice(index-1, 0, data);
+            return chunkers;
+        })
+    }
+    function moveRight() {
+        chunks.update(chunkers => {
+            let index = chunkers.indexOf(data)
+            chunkers = chunkers.filter(chunky => chunky != data);
+            chunkers.splice(index+1, 0, data);
+            return chunkers;
+        })
+    }
 </script>
 
 <div class='chunk-outer' style="background-color: rgb({determineColor()})">
     <h2>{data.type}</h2>
-    <i class='fa fa-file' on:click={chunks.update((chunkers) => {chunkers.push({...data}); return chunkers})}></i>
-    <i class='fa fa-close' on:click={chunks.set($chunks.filter(chunk => chunk != data))}></i>
+    <i class='fa fa-file' title="duplicate" on:click={chunks.update((chunkers) => {chunkers.push({...data}); return chunkers})}></i>
+    <i class='fa fa-close' title="delete" on:click={chunks.set($chunks.filter(chunk => chunk != data))}></i>
+    <i class='fa fa-arrow-left' title="move left" on:click={moveLeft} style="display: {isfirst ? 'none' : 'block'}"></i>
+    <i class='fa fa-arrow-right' title="move right" on:click={moveRight} style="display: {islast ? 'none' : 'block'}"></i>
     <div class='chunk-middle'>
         {#if data.type == "number"}
             <Number bind:data={data}/>
@@ -45,11 +65,9 @@
 </div>
 
 <style>
-    .fa-close {
+    .fa {
         font-size: 20px;
         position: absolute;
-        top: 10px;
-        right: 10px;
         background-color: #88888888;
         width: 22px;
         height: 22px;
@@ -57,17 +75,21 @@
         border-radius: 3px;
         z-index: 10;
     }
+    .fa-close {
+        top: 10px;
+        right: 10px;
+    }
     .fa-file {
-        font-size: 20px;
-        position: absolute;
         top: 10px;
         left: 10px;
-        background-color: #88888888;
-        width: 22px;
-        height: 22px;
-        text-align: center;
-        border-radius: 3px;
-        z-index: 10;
+    }
+    .fa-arrow-left {
+        top: 37px;
+        left: 10px;
+    }
+    .fa-arrow-right {
+        top: 37px;
+        right: 10px;
     }
     .chunk-outer {
         border-right: 1px rgb(79, 79, 79) outset;
